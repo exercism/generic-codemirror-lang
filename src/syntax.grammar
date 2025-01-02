@@ -1,70 +1,62 @@
 @top Program { statement* }
 
-@skip { whitespace | LineComment }
+// https://github.com/lezer-parser/java/blob/main/src/java.grammar
 
-statement {
-  expression |
-  Binding
+@skip { LineComment | whitespace }
+
+statement[@isGroup=Statement] {
+  ExpressionStatement
+}
+
+ExpressionStatement {
+  expression ";"
 }
 
 expression {
-  Array |
-  String | 
-  Char | 
-  number |
-  Glyph |
-  Inline
+  literal
 }
 
-number { Integer | Floating | Fraction | SpecialNumber }
-
-Char { hexChar | unicodeChar | escapeChar | char }
-
-Binding { Identifier "←" Signature? expression }
-
-Inline { "(" Signature? expression* ")" }
-
-@precedence {
-  // Define precedence if needed for underscore
-  underscore @left 
-}
-
-Array {
-  "[" expression* "]" |
-  "{" expression* "}" |
-  expression (!underscore "_" expression)+
+literal {
+  IntegerLiteral
+  //  |
+  // FloatingPointLiteral |
+  // @specialize[@name=BooleanLiteral]<identifier, "true" | "false"> |
+  // CharacterLiteral |
+  // StringLiteral |
+  // TextBlock |
+  // kw<"null">
 }
 
 @tokens {
-  whitespace { @whitespace+ }
-  digit { @digit }
+  whitespace { @whitespace+ }  
   letter { @asciiLetter }
-  hex { @digit | $[a-fA-F] }
+  digit { @digit }
 
-  Integer { "¯"? digit+ (("e" | "E") ("+" | "-")? digit+)? }
-  Floating { "¯"? digit+ "." digit+ }
-  Fraction { "¯"? digit+ "/" "¯"? digit+ }
-  SpecialNumber { $[ηπτ∞] }
+  IntegerLiteral {
+    digit+
+    ("0x" | "0X") $[0-9a-fA-F]+ |
+    ("0b" | "0B") $[01]+
+  }
+
+  // FloatingPointLiteral {
+  //   digits ("." digits? exponent? floatSuffix? | exponent floatSuffix? | floatSuffix) |
+  //   "." digits exponent? floatSuffix? |
+  //   ("0x" | "0X") (hexDigits ("." hexDigits?)? | "." hexDigits) hexExponent floatSuffix?
+  // }
+
+  // @precedence { FloatingPointLiteral, IntegerLiteral }
+
+  // Integer { "¯"? digit+ (("e" | "E") ("+" | "-")? digit+)? }
+  // Floating { "¯"? digit+ "." digit+ }
+  // Fraction { "¯"? digit+ "/" "¯"? digit+ }
+  // SpecialNumber { $[ηπτ∞] }
   
-  hexChar { "@\\x" hex hex}
-  unicodeChar {"@\\u" (hex hex hex hex | "{" hex+ "}") }
-  escapeChar { "@\\" $[0nrtbfvs\\] }
-  char { "@" _ }
+  // hexChar { "@\\x" hex hex}
+  // unicodeChar {"@\\u" (hex hex hex hex | "{" hex+ "}") }
+  // escapeChar { "@\\" $[0nrtbfvs\\] }
+  // char { "@" _ }
 
-  Escape { "\\" _ }
-  String { quotedString | rawString }
-  quotedString { "$"? '"' (!["\\] | Escape)* '"'}
-  rawString { "$"? "$ " ![\n]*+ }
-
-  Glyph { $[◠⌵+⌝’⍤∠˜◡⋯∩□⊓⊸⍩⌈⑄⊛ℂ◇⊟◴∂♭⊙÷⍢↘.∵=⍖⬚⌕⊢¤:⌊∧⊃⋅≥>⊕∘⊗∫⍚⊂▽⊣⧻≤<ₙ⦷≍↥∊∈↧◿×¯¬≠⌅⤚⟜⤸⋕⊜⊡◌ⁿ⚂⇡/⍥☇↯⇌⍏↻⁅≡⊏△±∿⍆√\?\-⨬⊞↙⸮⍉◹⍣⧅°⍜◰⊚◫⤙] }
-
-  Identifier { letter+ ("_"+ digit+)? }
-
-  Signature { "|" digit+ ("." digit+)? }
-
-  @precedence { Identifier, Signature, Fraction, Floating, Integer, Glyph }
-
-  LineComment { "#" ![\n]* }
+  LineComment { "//" ![\n]* }
 }
 
 @detectDelim

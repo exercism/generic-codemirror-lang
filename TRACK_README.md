@@ -1,6 +1,14 @@
 # replace-this-with-the-track-name language support for CodeMirror
 
+![NPM Version](https://img.shields.io/npm/v/@exercism/codemirror-lang-replace-this-with-the-track-slug)
+
 This repo contains the grammar for the replace-this-with-the-track-name language.
+
+## Resources
+
+- [Lezer](https://lezer.codemirror.net/docs/guide/)
+  - [Writing a Grammar](https://lezer.codemirror.net/docs/guide/#writing-a-grammar)
+  - [Examples](https://lezer.codemirror.net/examples/)
 
 ## Prerequisites
 

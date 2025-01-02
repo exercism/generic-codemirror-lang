@@ -1,0 +1,18 @@
+# Regular
+
+x ← 3
+one ← 1
+NumTwo ← 2
+
+==>
+
+Program(Binding(Identifier,Integer),Binding(Identifier,Integer),Binding(Identifier,Integer))
+
+# Subscript
+
+X__1 ← 5
+Sha__256 ← "TODO"
+
+==>
+
+Program(Binding(Identifier,Integer),Binding(Identifier,String))

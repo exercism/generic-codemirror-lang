@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>replace-this-with-the-track-name playground</title>
+  </head>
+  <body>
+    <div id="editor"></div>
+    <script type="module">
+            import { EditorView, basicSetup } from "codemirror";
+            import { replace-this-with-the-track-slug } from "./src/index.ts";
+
+            const doc = `# Numbers
+      5 6e3 0 3.2 3/4 ¯2/¯4 ¯1.1 η π τ ∞
+
+      # Characters
+      @a @Z @  @\\n @\\s @\xae @\x1F @\u2665 @\u{1f600}
+
+      # Strings
+      ""
+      "Hello, world!"
+      "Hello,\\sworld!"
+      "Hello, \\"world\\"!"
+      $"Hello _" "World"
+      $ Hello
+      $ World!
+      "World"
+      $$ Hello _
+
+      # Arrays
+      [] [1 2 3]
+      1_2_3 [1_2 3_4]
+      {} {1 {2 3}}
+
+      # Glyphs
+      ◠⌵+⌝’⍤∠˜◡⋯∩□⊓⊸⍩⌈⑄⊛ℂ◇⊟◴∂♭⊙÷⍢↘.∵=⍖⬚⌕⊢¤:⌊∧⊃⋅≥>⊕∘⊗∫⍚⊂▽⊣⧻≤<ₙ⦷≍↥∊∈↧◿×¯¬≠⌅⤚⟜⤸⋕⊜⊡◌ⁿ⚂⇡/⍥☇↯⇌⍏↻⁅≡⊏△±∿⍆√?-⨬⊞↙⸮⍉◹⍣⧅°⍜◰⊚◫⤙
+
+      # Bindings
+      x ← 3
+      one ← 1
+      NumTwo ← 2
+      😀 ← "happy"
+      X__1 = 5
+      Sha__256 = "TODO"
+
+      # Functions
+      Cube ← ××..
+      Cube ← (××..)
+      TimesThree ← |1.1 ×3
+      TimesThree ← |1 ×3
+      Cube ← (|1.2 .××..)
+      `
+
+            new EditorView({
+              doc: doc,
+              extensions: [basicSetup, replace-this-with-the-track-slug()],
+              parent: document.querySelector("#editor"),
+            });
+    </script>
+  </body>
+</html>

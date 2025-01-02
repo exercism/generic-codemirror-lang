@@ -1,0 +1,70 @@
+@top Program { statement* }
+
+@skip { whitespace | LineComment }
+
+statement {
+  expression |
+  Binding
+}
+
+expression {
+  Array |
+  String | 
+  Char | 
+  number |
+  Glyph |
+  Inline
+}
+
+number { Integer | Floating | Fraction | SpecialNumber }
+
+Char { hexChar | unicodeChar | escapeChar | char }
+
+Binding { Identifier "←" Signature? expression }
+
+Inline { "(" Signature? expression* ")" }
+
+@precedence {
+  // Define precedence if needed for underscore
+  underscore @left 
+}
+
+Array {
+  "[" expression* "]" |
+  "{" expression* "}" |
+  expression (!underscore "_" expression)+
+}
+
+@tokens {
+  whitespace { @whitespace+ }
+  digit { @digit }
+  letter { @asciiLetter }
+  hex { @digit | $[a-fA-F] }
+
+  Integer { "¯"? digit+ (("e" | "E") ("+" | "-")? digit+)? }
+  Floating { "¯"? digit+ "." digit+ }
+  Fraction { "¯"? digit+ "/" "¯"? digit+ }
+  SpecialNumber { $[ηπτ∞] }
+  
+  hexChar { "@\\x" hex hex}
+  unicodeChar {"@\\u" (hex hex hex hex | "{" hex+ "}") }
+  escapeChar { "@\\" $[0nrtbfvs\\] }
+  char { "@" _ }
+
+  Escape { "\\" _ }
+  String { quotedString | rawString }
+  quotedString { "$"? '"' (!["\\] | Escape)* '"'}
+  rawString { "$"? "$ " ![\n]*+ }
+
+  Glyph { $[◠⌵+⌝’⍤∠˜◡⋯∩□⊓⊸⍩⌈⑄⊛ℂ◇⊟◴∂♭⊙÷⍢↘.∵=⍖⬚⌕⊢¤:⌊∧⊃⋅≥>⊕∘⊗∫⍚⊂▽⊣⧻≤<ₙ⦷≍↥∊∈↧◿×¯¬≠⌅⤚⟜⤸⋕⊜⊡◌ⁿ⚂⇡/⍥☇↯⇌⍏↻⁅≡⊏△±∿⍆√\?\-⨬⊞↙⸮⍉◹⍣⧅°⍜◰⊚◫⤙] }
+
+  Identifier { letter+ ("_"+ digit+)? }
+
+  Signature { "|" digit+ ("." digit+)? }
+
+  @precedence { Identifier, Signature, Fraction, Floating, Integer, Glyph }
+
+  LineComment { "#" ![\n]* }
+}
+
+@detectDelim

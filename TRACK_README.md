@@ -4,15 +4,44 @@
 
 This repo contains the grammar for the replace-this-with-the-track-name language.
 
-## Resources
+## Install
 
-- [Lezer](https://lezer.codemirror.net/docs/guide/)
-  - [Writing a Grammar](https://lezer.codemirror.net/docs/guide/#writing-a-grammar)
-  - [Examples](https://lezer.codemirror.net/examples/)
+- NPM: `npm install @exercism/codemirror-lang-replace-this-with-the-track-slug`
+- Yarn: `yarn add @exercism/codemirror-lang-replace-this-with-the-track-slug`
+- Bun: `bun add @exercism/codemirror-lang-replace-this-with-the-track-slug`
 
 ## Prerequisites
 
 - [Bun](https://bun.sh/)
+
+## Resources
+
+- [CodeMirror](https://codemirror.net/docs/)
+- [Lezer](https://lezer.codemirror.net/docs/guide/)
+  - [Writing a Grammar](https://lezer.codemirror.net/docs/guide/#writing-a-grammar)
+  - [Examples](https://lezer.codemirror.net/examples/)
+
+## Structure
+
+The repo's source files are defined in [TypeScript](https://www.typescriptlang.org/).
+
+The repo is structured as follows:
+
+```text
+.
+├── src
+│   ├── index.ts (the main plugin)
+│   ├── syntax.grammar (the Lezer grammar)
+│   └── syntax.grammar.d.ts (the grammar typings)
+├── test
+│   ├── cases (test cases)
+│   │   └ *.txt (test case)
+│   └── grammar.test.ts (test file)
+├── index.html (dev server file)
+├── rollup.config.js (bundling config)
+├── tsconfig.json (typescript confif)
+└── vite.config.js (vite dev server config)
+```
 
 ## Setup
 

@@ -21,6 +21,7 @@ The repo comes with a tiny grammar that shows some basic grammar that you can tw
 - [Lezer](https://lezer.codemirror.net/docs/guide/)
   - [Writing a Grammar](https://lezer.codemirror.net/docs/guide/#writing-a-grammar)
   - [Examples](https://lezer.codemirror.net/examples/)
+  - [Existing grammar files](https://github.com/search?q=org%3Alezer-parser+path%3A%2F.grammar%24%2F&type=code)
 
 ## Structure
 

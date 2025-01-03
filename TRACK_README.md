@@ -5,6 +5,14 @@
 This repo contains the grammar for the replace-this-with-the-track-name language.
 The repo comes with a tiny grammar that shows some basic grammar that you can tweak for your purposes.
 
+⚠️ To ensure that the package can be integrated on the Exercism website, don't change the packages' versions:
+
+```json
+"@codemirror/language": "^6.10.1",
+"@lezer/highlight": "^1.2.0",
+"@lezer/lr": "^1.4.0"
+```
+
 ## Install
 
 - NPM: `npm install @exercism/codemirror-lang-replace-this-with-the-track-slug`

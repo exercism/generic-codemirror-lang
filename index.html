@@ -11,45 +11,21 @@
             import { EditorView, basicSetup } from "codemirror";
             import { replace-this-with-the-track-slug } from "./src/index.ts";
 
-            const doc = `# Numbers
-      5 6e3 0 3.2 3/4 ¯2/¯4 ¯1.1 η π τ ∞
+            const doc = `
+      # Booleans
 
-      # Characters
-      @a @Z @  @\\n @\\s @\xae @\x1F @\u2665 @\u{1f600}
+      true
+      false
 
-      # Strings
-      ""
-      "Hello, world!"
-      "Hello,\\sworld!"
-      "Hello, \\"world\\"!"
-      $"Hello _" "World"
-      $ Hello
-      $ World!
-      "World"
-      $$ Hello _
+      # Integers
 
-      # Arrays
-      [] [1 2 3]
-      1_2_3 [1_2 3_4]
-      {} {1 {2 3}}
+      5
+      1000
 
-      # Glyphs
-      ◠⌵+⌝’⍤∠˜◡⋯∩□⊓⊸⍩⌈⑄⊛ℂ◇⊟◴∂♭⊙÷⍢↘.∵=⍖⬚⌕⊢¤:⌊∧⊃⋅≥>⊕∘⊗∫⍚⊂▽⊣⧻≤<ₙ⦷≍↥∊∈↧◿×¯¬≠⌅⤚⟜⤸⋕⊜⊡◌ⁿ⚂⇡/⍥☇↯⇌⍏↻⁅≡⊏△±∿⍆√?-⨬⊞↙⸮⍉◹⍣⧅°⍜◰⊚◫⤙
+      # Floating-point numbers
 
-      # Bindings
-      x ← 3
-      one ← 1
-      NumTwo ← 2
-      😀 ← "happy"
-      X__1 = 5
-      Sha__256 = "TODO"
-
-      # Functions
-      Cube ← ××..
-      Cube ← (××..)
-      TimesThree ← |1.1 ×3
-      TimesThree ← |1 ×3
-      Cube ← (|1.2 .××..)
+      3.2
+      1.134123
       `
 
             new EditorView({

@@ -3,6 +3,7 @@
 ![NPM Version](https://img.shields.io/npm/v/@exercism/codemirror-lang-replace-this-with-the-track-slug)
 
 This repo contains the grammar for the replace-this-with-the-track-name language.
+The repo comes with a tiny grammar that shows some basic grammar that you can tweak for your purposes.
 
 ## Install
 

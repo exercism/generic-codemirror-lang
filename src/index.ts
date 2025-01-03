@@ -7,24 +7,15 @@ export const replace-this-with-the-track-slugLanguage = LRLanguage.define({
   parser: parser.configure({
     props: [
       styleTags({
-        String: t.string,
         LineComment: t.lineComment,
-        Char: t.character,
-        "Integer SpecialNumber": t.number,
-        "Floating Fraction": t.float,
-        "( )": t.paren,
-        "[ ]": t.squareBracket,
-        "{ }": t.brace,
-        Escape: t.escape,
-        Identifier: t.function(t.definition(t.variableName)),
-        Signature: t.meta,
-        Glyph: t.atom,
+        IntegerLiteral: t.number,
+        FloatingLiteral: t.float,
+        BooleanLiteral: t.bool,
       }),
     ],
   }),
   languageData: {
-    closeBrackets: { brackets: ["(", "[", "{", '"'] },
-    commentTokens: { line: "#" },
+    commentTokens: { line: "//" },
   },
 });
 

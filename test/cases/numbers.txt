@@ -1,31 +1,17 @@
 # Integers
 
-5 6e3 0
+5
+1000
 
 ==>
 
-Program(Integer,Integer,Integer)
+Program(IntegerLiteral, IntegerLiteral)
 
 # Floating-point numbers
 
-3.2 ¯1.1
+3.2
+1.13412
 
 ==>
 
-Program(Floating,Floating)
-
-# Fractions
-
-3/4 ¯2/¯4
-
-==>
-
-Program(Fraction,Fraction)
-
-# Special numbers
-
-η π τ ∞
-
-==>
-
-Program(SpecialNumber,SpecialNumber,SpecialNumber,SpecialNumber)
+Program(FloatingPointLiteral, FloatingPointLiteral)

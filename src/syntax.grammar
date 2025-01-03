@@ -1,60 +1,28 @@
-@top Program { statement* }
-
-// https://github.com/lezer-parser/java/blob/main/src/java.grammar
+@top Program { expression* }
 
 @skip { LineComment | whitespace }
-
-statement[@isGroup=Statement] {
-  ExpressionStatement
-}
-
-ExpressionStatement {
-  expression ";"
-}
 
 expression {
   literal
 }
 
 literal {
-  IntegerLiteral
-  //  |
-  // FloatingPointLiteral |
-  // @specialize[@name=BooleanLiteral]<identifier, "true" | "false"> |
-  // CharacterLiteral |
-  // StringLiteral |
-  // TextBlock |
-  // kw<"null">
+  BooleanLiteral |
+  IntegerLiteral |  
+  FloatingPointLiteral
 }
 
 @tokens {
   whitespace { @whitespace+ }  
-  letter { @asciiLetter }
   digit { @digit }
 
-  IntegerLiteral {
-    digit+
-    ("0x" | "0X") $[0-9a-fA-F]+ |
-    ("0b" | "0B") $[01]+
-  }
+  IntegerLiteral { digit+ }
 
-  // FloatingPointLiteral {
-  //   digits ("." digits? exponent? floatSuffix? | exponent floatSuffix? | floatSuffix) |
-  //   "." digits exponent? floatSuffix? |
-  //   ("0x" | "0X") (hexDigits ("." hexDigits?)? | "." hexDigits) hexExponent floatSuffix?
-  // }
+  FloatingPointLiteral { digit+ "." digit+ }
 
-  // @precedence { FloatingPointLiteral, IntegerLiteral }
+  BooleanLiteral { "true" | "false" }
 
-  // Integer { "¯"? digit+ (("e" | "E") ("+" | "-")? digit+)? }
-  // Floating { "¯"? digit+ "." digit+ }
-  // Fraction { "¯"? digit+ "/" "¯"? digit+ }
-  // SpecialNumber { $[ηπτ∞] }
-  
-  // hexChar { "@\\x" hex hex}
-  // unicodeChar {"@\\u" (hex hex hex hex | "{" hex+ "}") }
-  // escapeChar { "@\\" $[0nrtbfvs\\] }
-  // char { "@" _ }
+  @precedence { FloatingPointLiteral, IntegerLiteral }
 
   LineComment { "//" ![\n]* }
 }

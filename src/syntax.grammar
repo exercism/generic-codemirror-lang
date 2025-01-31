@@ -1,16 +1,19 @@
-@top Program { statement* }
+@top Program { newLineDelimitedStatement* }
 
-@skip { whitespace | LineComment }
+@skip { " " | LineComment }
+
+newLine { "\n" }
+newLineDelimitedStatement { statement newLine }
 
 statement {
   FunctionDefinition |
-  VariableDefinition |
-  VariableReassignment |
+  SetVariableStatement |
+  ChangeVariableStatement |
   RepeatStatement |
   RepeatUntilGameOverStatement |
   IfStatement |
   ReturnStatement |
-  ExpressionStatement { expression }
+  CallStatement { CallExpression }
 }
 
 FunctionDefinition {
@@ -22,7 +25,7 @@ argumentList {
   Identifier ("," Identifier)*
 }
 RepeatStatement {
-  keyword<"repeat"> expression keyword<"times"> Body
+  keyword<"repeat"> Expression keyword<"times"> Body
 }
 
 RepeatUntilGameOverStatement {
@@ -30,8 +33,8 @@ RepeatUntilGameOverStatement {
 }
 
 IfStatement {
-  keyword<"if"> expression keyword<"do"> statement* ElseStatement | 
-  keyword<"if"> expression Body
+  keyword<"if"> Expression keyword<"do"> statement* ElseStatement | 
+  keyword<"if"> Expression Body
 }
 
 ElseStatement {
@@ -43,29 +46,45 @@ Body {
 }
 
 ReturnStatement {
-  keyword<"return"> (expression)
+  keyword<"return"> (Expression)
 }
 
-VariableDefinition {
-  keyword<"set"> Identifier keyword<"to"> expression
+SetVariableStatement {
+  keyword<"set"> Identifier keyword<"to"> Expression
 }
-VariableReassignment {
-  keyword<"change"> Identifier keyword<"to"> expression
+ChangeVariableStatement {
+  keyword<"change"> Identifier keyword<"to"> Expression
+}
+
+Expression {
+  BinaryExpression |
+  PrimaryExpression
 }
 
 PrimaryExpression {
+  GroupingExpression |
+  CallExpression |
   Identifier |
   Boolean |
   String |
-  number |
-  "(" expression ")"
+  number
 }
+
+GroupingExpression { 
+  "(" Expression ")"
+}
+
 
 RelationalExpression {
   PrimaryExpression keyword<">"> PrimaryExpression |
   PrimaryExpression keyword<"<"> PrimaryExpression |
   PrimaryExpression keyword<">="> PrimaryExpression |
-  PrimaryExpression keyword<"<="> PrimaryExpression
+  PrimaryExpression keyword<"<="> PrimaryExpression |
+  PrimaryExpression keyword<"*"> PrimaryExpression | 
+  PrimaryExpression keyword<"+"> PrimaryExpression | 
+  PrimaryExpression keyword<"/"> PrimaryExpression | 
+  PrimaryExpression keyword<"-"> PrimaryExpression | 
+  PrimaryExpression keyword<"%"> PrimaryExpression 
 }
 
 EqualityExpression {
@@ -79,10 +98,13 @@ BinaryExpression {
   RelationalExpression
 }
 
-expression {
-  BinaryExpression |
-  PrimaryExpression
+CallExpression {
+  Identifier "(" parameterList? ")"
 }
+parameterList {
+  Expression ("," Expression)*
+}
+
 
 number { Integer | Floating }
 
@@ -103,7 +125,6 @@ keyword<term> { @specialize[@name={term}]<Identifier, term> }
   String { '"' (!["\\] | "\\" _)* '"' }
   Boolean { "true" | "false" }
   LineComment { "//" ![\n]* }
-  whitespace { @whitespace+ }
 
   letter { @asciiLetter }
   digit { @digit }

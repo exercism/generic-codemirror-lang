@@ -31,6 +31,34 @@ false
 // String Concatenation
 "Hello, " + "world!"
 
+// parenthesis matching
+set foo to 5 + 3
+set foo to (5 + 3) * 2
+set foo to ((5 + 3))
+set foo to max( (e / f), 5 )
+set foo to max( (e / f), (g - h) )
+set foo to ( (a + b) * (5) )
+
+// SET STATEMENT: set foo to ( (a + b) * (5) )
+// GROUPING EXPRESSION: ( (a + b) * (5) )
+// RELATIONAL EXPRESSION: (a + b) * (5)
+// LEFT: GROUPING EXPRESSION: (a + b)
+// LEFT: RELATIONAL EXPRESSION: a + b
+// RIGHT: GROUPING EXPRESSION: (5)
+// RIGHT: LITERAL: 5
+
+set foo to (( (a + b) * (c - d) ) + 5 )
+set foo to 2 * (a + b) * (c - d)
+set foo to 2 * ( (a + b) * (c - d) )
+set foo to 2 * (( (a + b) * (c - d) ) + 5 )
+set foo to 2 * (( (a + b) * (c - d) ) + max())
+set foo to 2 * (( (a + b) * (c - d) ) + max( (e / f), (g - h) ))
+
+// Function calls
+something()
+something(1, true, "foo")
+(something())
+
 // Variable setting
 set x to 5
 change x to 3
@@ -86,6 +114,7 @@ end
               extensions: [basicSetup, jikiscript()],
               parent: document.querySelector("#editor"),
             });
+            
     </script>
   </body>
 </html>

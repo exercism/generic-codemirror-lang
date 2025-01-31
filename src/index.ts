@@ -3,7 +3,6 @@ import { LRLanguage, LanguageSupport } from "@codemirror/language";
 import { indentNodeProp, foldNodeProp, foldInside  } from "@codemirror/language";
 import { styleTags, tags as t } from "@lezer/highlight";
 
-
 const addIndent = (context) => context.lineIndent(context.node.from) + context.unit // Indent for function body
 const removeIndent = (context) => context.lineIndent(context.node.from)
 

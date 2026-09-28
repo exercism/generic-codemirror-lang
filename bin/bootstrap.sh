@@ -47,7 +47,7 @@ for file in $(git grep --files-with-matches replace-this-with-the-track-name); d
     sed -i "s/replace-this-with-the-track-name/${LANGUAGE}/g" "${file}"
 done
 
-rm -f bin
+rm -rf bin
 rm -rf .git
 mv TRACK_README.md README.md
 git init
